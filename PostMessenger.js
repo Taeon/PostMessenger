@@ -49,7 +49,7 @@
                 var listener = this.l[ i ];
                 if
                 (
-                    ( listener.domain == null || listener.domain == message_event.origin )
+                    ( listener.domain == null || listener.domain == message_event.origin || listener.domain == '*' )
                     && 
                     ( listener.namespace == null || listener.namespace == data.namespace )
                 )
