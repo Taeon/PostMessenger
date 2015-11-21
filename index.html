@@ -16,6 +16,60 @@
     <![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css"/>
+        <script type="text/javascript" src="https://rawgit.com/Taeon/PostMessenger/master/PostMessenger.min.js"></script>
+        <script type="text/javascript">
+            function ready(fn) {
+              if (document.readyState != 'loading'){
+                fn();
+              } else if (document.addEventListener) {
+                document.addEventListener('DOMContentLoaded', fn);
+              } else {
+                document.attachEvent('onreadystatechange', function() {
+                  if (document.readyState != 'loading')
+                    fn();
+                });
+              }
+            }
+            
+            Demo = {
+                Init:function(){
+                    this.pm_local_iframe = new PostMessenger( null, '#local-iframe' );                    
+                    this.pm_local_iframe.AddListener( this.Receive );
+                },
+                Receive:function( message ){
+                    var d = document.createElement( 'div' );
+                    d.innerHTML = 'Received from local iframe: ' + message;
+                    document.querySelectorAll('#output')[ 0 ].appendChild( d );
+                },
+                SendToLocalIframe:function( message, namespace ){
+                    this.pm_local_iframe.Send( message, namespace );
+                }
+            }
+
+            ready(
+                function() {
+                    Demo.Init();
+                }
+            );
+        </script>
+        <style type="text/css">
+            #output{
+                width: 49%;
+                height: 300px;
+                display: inline-block;
+                vertical-align: top;
+                border: 1px solid #ccc;
+                overflow: auto;
+            }
+            #local-iframe{
+                width: 49%;
+                height: 300px;
+                display: inline-block;
+                border: 1px solid #ccc;
+            }
+        </style>
+
   </head>
   <body>
       <div id="header">
@@ -34,12 +88,21 @@
           <h1>PostMessenger</h1>
           <p>Simple-to-use but elegant wrapper around JavaScript&#39;s postMessage function, allowing communication between parent/iframe and parent/popup</p>
           <hr>
-          <span class="credits left">Project maintained by <a href="https://github.com/Taeon">Taeon</a></span>
-          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
         </div>
 
-        <p>This is a test</p>
+        <h1>Parent</h1>
+        
+        <p>A simple demo of <a href="https://github.com/Taeon/PostMessenger">PostMessenger</a>, simple wrapper for Javascript's postMessage() function.</p>
+        
+        <button class="pure-button" onclick="Demo.SendToLocalIframe('This is important','Important')">Send to iframe as 'Important'</button>
+        <button class="pure-button" onclick="Demo.SendToLocalIframe('This is trivial','Trivial')">Send to iframe as 'Trivial'</button>
+        <div>
+            <div id="output"></div>
+            <iframe id="local-iframe" src="local_iframe.html"></iframe>
+        </div>
       </section>
+          <span class="credits left">Project maintained by <a href="https://github.com/Taeon">Taeon</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
 
     </div>
     <!--[if !IE]><script>fixScale(document);</script><![endif]-->

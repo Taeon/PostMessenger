@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>PostMessenger by Taeon</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css"/>
+        <script type="text/javascript" src="https://rawgit.com/Taeon/PostMessenger/master/PostMessenger.min.js"></script>
+        <script type="text/javascript">
+            function ready(fn) {
+              if (document.readyState != 'loading'){
+                fn();
+              } else if (document.addEventListener) {
+                document.addEventListener('DOMContentLoaded', fn);
+              } else {
+                document.attachEvent('onreadystatechange', function() {
+                  if (document.readyState != 'loading')
+                    fn();
+                });
+              }
+            }
+            
+            Demo = {
+                Init:function(){
+                    this.pm_parent = new PostMessenger( '*', parent );
+                    this.pm_parent.AddListener( this.ReceiveImportant, 'Important' );
+                    this.pm_parent.AddListener( this.ReceiveTrivial, 'Trivial' );
+                },
+                ReceiveImportant:function( message ){
+                    var d = document.createElement( 'div' );
+                    d.innerHTML = 'Received important message from parent: ' + message;
+                    document.querySelectorAll('#output')[ 0 ].appendChild( d );
+                },
+                ReceiveTrivial:function( message ){
+                    var d = document.createElement( 'div' );
+                    d.innerHTML = 'Received trivial message from parent: ' + message;
+                    document.querySelectorAll('#output')[ 0 ].appendChild( d );
+                },
+                SendToParent:function(){
+                    this.pm_parent.Send( 'Hello' );
+                }
+            }
+
+            ready(
+                function() {
+                    Demo.Init();
+                }
+            );
+
+        </script>
+        <style type="text/css">
+            #output{
+                width: 99%;
+                height: 170px;
+                display: inline-block;
+                vertical-align: top;
+                border: 1px solid #ccc;
+                overflow: auto;
+            }
+        </style>
+
+  </head>
+  <body>
+    <div class="wrapper">
+
+        <div id="title">
+          <h1>Local Iframe</h1>
+        <button class="pure-button" onclick="Demo.SendToParent()">Send to parent</button>
+        <div>
+            <div id="output"></div>
+        <div>
+    </body>
+</html>
