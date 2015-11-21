@@ -1,5 +1,5 @@
 # PostMessenger
-Simple-to-use but elegant wrapper around JavaScript's postMessage() function, allowing communication between parent/iframe and parent/popup.
+Simple-to-use but elegant wrapper around JavaScript's postMessage() function, allowing communication between parent/iframe and parent/popup. Demo [here](https://taeon.github.io/PostMessenger/).
 
 PostMessenger encourages secure practices by specifying the domain for both parties, and tying listeners to specific elements rather than listening to all incoming postMessage() events indiscriminately.
 
