@@ -44,7 +44,12 @@
          * @param       object      message_event       The message object sent by remote postMessage call
          */
         var R = function( message_event ){
-            var data = JSON.parse( message_event.data );
+            var data = message_event.data;
+            // If it's a string...
+			if( typeof data == 'string' ){
+                // ...convert it to an object
+				data = JSON.parse( message_event.data );
+			}
             for ( var i = 0; i < this.l.length; i++) {
                 var listener = this.l[ i ];
 				if
