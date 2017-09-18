@@ -63,6 +63,8 @@
 					)
                     &&
                     ( listener.namespace == null || listener.namespace == data.namespace )
+					&&
+					!( this.n && this.n != data.namespace )
                 )
                 {
                     if ( listener.element_selector ) {
@@ -176,6 +178,9 @@
                 if ( element != parent && element.nodeName == 'IFRAME' ) {
                     element = element.contentWindow;
                 }
+				if( typeof this.n !== 'undefined' ){
+					namespace = this.n;
+				}
                 element.postMessage( JSON.stringify({namespace:namespace,data:data}),this.d);
             }
         }
