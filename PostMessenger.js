@@ -47,8 +47,13 @@
             var data = message_event.data;
             // If it's a string...
 			if( typeof data == 'string' ){
-                // ...convert it to an object
-				data = JSON.parse( message_event.data );
+                // Is it JSON?
+                try {
+                    data = JSON.parse( message_event.data );
+                } catch (e) {
+                    // Ignore anything that's not JSON
+                    return;
+                }
 			}
             for ( var i = 0; i < this.l.length; i++) {
                 var listener = this.l[ i ];
